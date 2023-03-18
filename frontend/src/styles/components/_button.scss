@@ -1,0 +1,67 @@
+.button-cancel {
+    background-color: $btn-cancel;
+}
+.button-profile {
+    border: 1px solid gray;
+    border-radius: 2em;
+}
+.button-profile button p:hover {
+    transform: scale(0.9);
+}
+.button-submit {
+    background-color: $main-color-light;
+    border: 0.5px solid $main-color;
+    font-weight: 700;
+}
+.button-create {
+    background-color: $btn-create-light;
+    border: 0.5px solid $btn-create;
+    font-weight: 700;
+}
+.button-disabled {
+    opacity: 0.5;
+}
+button {
+    padding: 0.5em;
+}
+.expand {
+    margin: auto;
+}
+.button-lg {
+    padding: 1em;
+    width: fit-content;
+}
+.button-features:hover {
+    display: block;
+}
+.button-underline {
+}
+.button-underline:hover {
+    border-bottom: 2px solid rgb(170, 249, 255);
+}
+.dropdown-create {
+    border: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: black;
+    border: 1px solid $btn-create;
+    background-color: inherit;
+}
+.dropdown-create:hover {
+    border: 1px solid $btn-create;
+    background-color: $btn-create;
+}
+.dropdown-filter {
+    border: inherit;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: black;
+    border: 1px solid $btn-filter;
+    background-color: inherit;
+}
+.dropdown-filter:hover {
+    border: 1px solid $btn-filter;
+    background-color: $btn-filter;
+}

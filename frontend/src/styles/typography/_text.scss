@@ -1,0 +1,42 @@
+h1 {
+    font-size: 50px;
+}
+h2 {
+    font-size: 45px;
+}
+h3 {
+    font-size: 40px;
+}
+h4 {
+    font-size: 35px;
+}
+p {
+    font-size: 1.5em;
+}
+strong {
+    font-weight: bolder;
+}
+.alert-text {
+    display: block;
+    margin-bottom: 1em;
+    color: tomato;
+    font-weight: bolder;
+}
+.success-text {
+    display: block;
+    margin-bottom: 1em;
+    color: chartreuse;
+    font-weight: bolder;
+}
+.sm-text {
+    font-size: smaller;
+}
+.md-text {
+    font-size: medium;
+}
+.title-separator {
+    margin: 0.5em 0;
+}
+.underline:hover {
+    text-decoration: underline;
+}

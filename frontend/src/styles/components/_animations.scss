@@ -1,0 +1,49 @@
+.animation-bg-blind:hover {
+    animation: blind-dark 2s infinite;
+    background-color: rgb(85, 85, 85);
+}
+@keyframes blind-dark {
+    25% {
+        background-color: gray;
+    }
+    50% {
+        background-color: rgb(85, 85, 85);
+    }
+    75% {
+        background-color: gray;
+    }
+    100% {
+        background-color: rgb(85, 85, 85);
+    }
+}
+.animation-u-blind:hover {
+    animation: button-blind 2s infinite ease both;
+    border-color: rgb(170, 249, 255);
+}
+@keyframes button-blind {
+    0% {
+        border-color: rgb(170, 249, 255);
+    }
+    50% {
+        border-color: rgb(63, 183, 191);
+    }
+    100% {
+        border-color: rgb(170, 249, 255);
+    }
+}
+@keyframes hide {
+    from {
+        opacity: 100%;
+    }
+    to {
+        opacity: 0%;
+    }
+}
+@keyframes show {
+    from {
+        opacity: 0%;
+    }
+    to {
+        opacity: 100%;
+    }
+}

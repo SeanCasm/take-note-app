@@ -1,0 +1,9 @@
+.success-header {
+    background-color: $btn-create-light;
+}
+.failure-header {
+    background-color: $btn-cancel;
+}
+.message-container {
+    animation: show 1s 0s forwards, hide 1s 6s forwards;
+}
