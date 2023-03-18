@@ -26,9 +26,9 @@ class Server {
     this.app.use(this.paths.note, require("../routes/note"));
     this.app.use(this.paths.book, require("../routes/book"));
 
-    // this.app.get("*", (req, res) => {
-    //   res.sendFile(path.resolve("public/index.html"));
-    // });
+    this.app.get("*", (req, res) => {
+      res.sendFile(path.resolve("public/index.html"));
+    });
   }
   async connectDB() {
     await dbConnection();
