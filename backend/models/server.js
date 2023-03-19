@@ -21,10 +21,11 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
 
-    // Serve static files from the "public" folder
-    const __dirname = path.resolve();
-    // this.app.use(express.static(path.join(__dirname, "frontend", "public")));
     this.app.use(express.static(path.join(__dirname, "build")));
+
+    this.app.get("/", function (req, res) {
+      res.sendFile(path.join(__dirname, "build", "index.html"));
+    });
 
     this.app.use(this.paths.user, require("../routes/user"));
     this.app.use(this.paths.feature, require("../routes/feature"));
