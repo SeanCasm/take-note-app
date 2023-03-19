@@ -21,11 +21,7 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
 
-    this.app.use(express.static(path.join(__dirname, "build")));
-
-    this.app.get("/", function (req, res) {
-      res.sendFile(path.join(__dirname, "build", "index.html"));
-    });
+    this.app.use(express.static("public"));
 
     this.app.use(this.paths.user, require("../routes/user"));
     this.app.use(this.paths.feature, require("../routes/feature"));
