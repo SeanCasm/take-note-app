@@ -2,6 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dbConnection = require("../database/config");
 const path = require("path");
+require("dotenv").config();
+
 class Server {
   constructor() {
     this.app = express();
@@ -18,17 +20,17 @@ class Server {
 
     this.app.use(cors());
     this.app.use(express.json());
-    this.app.use(express.static("public"));
+
+    // Serve static files from the "public" folder
+    const __dirname = path.resolve();
+    // this.app.use(express.static(path.join(__dirname, "frontend", "public")));
+    this.app.use(express.static(path.join(__dirname, "build")));
 
     this.app.use(this.paths.user, require("../routes/user"));
     this.app.use(this.paths.feature, require("../routes/feature"));
     this.app.use(this.paths.auth, require("../routes/auth"));
     this.app.use(this.paths.note, require("../routes/note"));
     this.app.use(this.paths.book, require("../routes/book"));
-
-    this.app.get("*", (req, res) => {
-      res.sendFile(path.resolve("public/index.html"));
-    });
   }
   async connectDB() {
     await dbConnection();
