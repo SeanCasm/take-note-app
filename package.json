@@ -9,6 +9,5 @@
         "test": "echo \"Error: no test specified\" && exit 1"
     },
     "author": "Sebastian Cataldo",
-    "license": "ISC",
-    "homepage": "https://takenote-7503.onrender.com"
+    "license": "ISC"
 }

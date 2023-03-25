@@ -21,13 +21,19 @@ class Server {
     this.app.use(cors());
     this.app.use(express.json());
 
-    this.app.use(express.static("public"));
-
     this.app.use(this.paths.user, require("../routes/user"));
     this.app.use(this.paths.feature, require("../routes/feature"));
     this.app.use(this.paths.auth, require("../routes/auth"));
     this.app.use(this.paths.note, require("../routes/note"));
     this.app.use(this.paths.book, require("../routes/book"));
+
+    const buildPath = path.join(__dirname, "frontend", "build");
+    app.use(express.static(buildPath));
+
+    app.get("*", (req, res) => {
+      const indexPath = path.join(buildPath, "index.html");
+      res.sendFile(indexPath);
+    });
   }
   async connectDB() {
     await dbConnection();
