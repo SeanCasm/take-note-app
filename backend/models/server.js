@@ -26,8 +26,7 @@ class Server {
     this.app.use(this.paths.auth, require("../routes/auth"));
     this.app.use(this.paths.note, require("../routes/note"));
     this.app.use(this.paths.book, require("../routes/book"));
-
-    const buildPath = path.join(__dirname, "frontend", "build");
+    const buildPath = path.join(__dirname, "../../frontend", "build");
     this.app.use(express.static(buildPath));
 
     this.app.get("*", (req, res) => {
