@@ -28,9 +28,9 @@ class Server {
     this.app.use(this.paths.book, require("../routes/book"));
 
     const buildPath = path.join(__dirname, "frontend", "build");
-    this.app.app.use(express.static(buildPath));
+    this.app.use(express.static(buildPath));
 
-    this.app.app.get("*", (req, res) => {
+    this.app.get("*", (req, res) => {
       const indexPath = path.join(buildPath, "index.html");
       res.sendFile(indexPath);
     });
