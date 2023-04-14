@@ -4,7 +4,6 @@ import { onSuccessUpdate, onFailureUpdate } from "../store/messageSlice";
 import { onUpdateItem } from "../store/bookSlice";
 import {
   onUpdateSelected,
-  onUpdateNoteItem,
   onUpdateNotesList,
   onDeleteNote,
   onAddNote,

@@ -9,7 +9,7 @@ export const FeatureScreen = () => {
   }, []);
   return (
     <>
-      <main>
+      <main className="container">
         <section>
           <div>
             <h1>

@@ -8,6 +8,7 @@ import { Recaptcha } from "./Recaptcha";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { GoogleLogin } from "@react-oauth/google";
 import { ButtonSubmit } from "../Buttons/ButtonSubmit";
+import { FailureMessage } from "./AuthMessage";
 
 const schema = yup
   .object({
@@ -35,7 +36,7 @@ const schema = yup
 
 export const SignUp = () => {
   const [reCaptcha, setReCaptcha] = useState("");
-  const { createUser, googleLogin, message } = useProfile();
+  const { createUser, googleLogin } = useProfile();
   const [hidePassword, setHidePassword] = useState(true);
 
   const {
@@ -136,7 +137,7 @@ export const SignUp = () => {
       </div>
 
       <Recaptcha handleReCaptcha={handleReCaptcha} />
-      {message !== "" && <label className="alert-text">{message}</label>}
+      <FailureMessage />
       <ButtonSubmit disabled={false} text="Sign up" />
       <div className="mt-5 text-center">
         <div className="mb-3">
