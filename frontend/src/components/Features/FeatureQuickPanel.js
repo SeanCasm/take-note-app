@@ -11,15 +11,9 @@ export const FeatureQuickPanel = () => {
     <section className="feature-card-container">
       <div className="container">
         <ul className="row justify-content-center align-items-center">
-          {features.map((item) => {
+          {features()?.map((item) => {
             return (
-              <>
-                <Feature
-                  key={item.title}
-                  feature={item}
-                  displayOverview={true}
-                />
-              </>
+              <Feature key={item.title} feature={item} displayOverview={true} />
             );
           })}
         </ul>

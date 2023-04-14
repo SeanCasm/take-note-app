@@ -31,7 +31,6 @@ export const LogIn = () => {
   const onSubmit = ({ email, password }) => {
     login(email, password);
   };
-
   return (
     <form className="panel" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3">
