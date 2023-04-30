@@ -5,27 +5,25 @@ import { AiOutlineBook } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useBook } from "../../hooks/useBook";
 import { UpDownArrowIcon } from "../UpDownArrowIcon";
+import { useNote } from "../../hooks/useNote";
 
-export const BooksDropdown = ({ setValue, bookId = "" }) => {
+export const BooksDropdown = ({ setValue }) => {
   const [toggle, setToggle] = useState(false);
-  const [bookTitle, setBookTitle] = useState("");
-  const { book } = useBook();
-  const handleSelected = ({ title, id }) => {
+  const { book, selectOne } = useBook();
+  const { note } = useNote();
+  const handleSelected = ({id, title}) => {
     setValue(id);
-    setBookTitle(title);
+    selectOne({ id, title });
   };
 
   useEffect(() => {
-    const bId = bookId || book.bookList[0].id;
+    const bId = note.selected.book ?? book.bookList[0].id;
     setValue(bId);
-  }, [bookId]);
+  }, [note.selected]);
 
   useEffect(() => {
-    if (book.bookList.length > 0 && bookId !== "") {
-      const b = book.bookList.find((book) => book.id === bookId);
-      setBookTitle(b.title);
-    } else if (book.bookList.length > 0 && bookId === "") {
-      handleSelected(book.bookList[0]);
+    if (book.bookList.length > 0 && note.selected.book === "") {
+      setValue(book.bookList[0]);
     }
   }, [book.bookList]);
 
@@ -39,7 +37,7 @@ export const BooksDropdown = ({ setValue, bookId = "" }) => {
     >
       <Dropdown.Toggle className="dropdown-create" id="dropdown-basic">
         <AiOutlineBook className="icon-sm" />
-        <p>{bookTitle}</p>
+        <p>{book.selected.title}</p>
         <UpDownArrowIcon clicked={toggle} />
       </Dropdown.Toggle>
       <Dropdown.Menu>
@@ -65,5 +63,4 @@ export const BooksDropdown = ({ setValue, bookId = "" }) => {
 
 BooksDropdown.propTypes = {
   setValue: PropTypes.func,
-  bookId: PropTypes.string,
 };

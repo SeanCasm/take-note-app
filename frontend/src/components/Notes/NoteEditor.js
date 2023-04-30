@@ -28,7 +28,7 @@ export const NoteEditor = ({ note = {} }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const { saveNote } = useNote();
-  
+
   const handleBookSelected = (id) => {
     setValue("book", id);
     setEdition(id !== note.book);
@@ -87,7 +87,7 @@ export const NoteEditor = ({ note = {} }) => {
               )}
             </div>
             <div className="mb-3">
-              <BooksDropdown setValue={handleBookSelected} bookId={note.book} />
+              <BooksDropdown setValue={handleBookSelected} />
             </div>
             {errors.book && (
               <label className="alert-text">{errors.book?.message}</label>

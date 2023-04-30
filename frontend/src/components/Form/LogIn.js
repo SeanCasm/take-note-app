@@ -63,10 +63,15 @@ export const LogIn = () => {
       </div>
       <FailureMessage />
       <ButtonSubmit disabled={false} text="Log in" />
-      <div className="mt-3 text-center">
-        <p>Or try with your google account</p>
+      <hr className="mt-3"/>
+      <div className="mt-5 text-center">
+        <p>Or log in with</p>
         <div className="mt-3">
           <GoogleLogin
+            logo_alignment="center"
+            shape="pill  "
+            text="signin_with"
+            size="large"
             onSuccess={({ credential }) => {
               googleLogin(credential);
             }}

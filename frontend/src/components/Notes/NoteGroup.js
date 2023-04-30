@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import { Filter } from "../Filter";
 import { onUpdateSelected } from "../../store/noteSlice";
@@ -9,16 +9,10 @@ import { useNote } from "../../hooks/useNote";
 export const NoteGroup = () => {
   const dispatch = useDispatch();
   const { note } = useNote();
-  
+
   const handleNoteSelected = (note) => {
     dispatch(onUpdateSelected(note));
   };
-
-  useEffect(() => {
-    if (note.notesList.length > 0) {
-      dispatch(onUpdateSelected(note.notesList[0]));
-    }
-  }, [note.notesList]);
 
   return (
     <section>

@@ -1,6 +1,11 @@
 import { userApi, authApi, oAuthApi } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogSuccess, onLogError, onLogout } from "../store/userSlice";
+import {
+  onLogSuccess,
+  onLogError,
+  onLogout,
+  onResetMessage,
+} from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useToken } from "./useToken";
 
@@ -81,6 +86,10 @@ export const useProfile = () => {
     navigate("/home", { replace: true });
   };
 
+  const resetMessage = () => {
+    dispatch(onResetMessage());
+  };
+
   return {
     createUser,
     login,
@@ -92,5 +101,6 @@ export const useProfile = () => {
     status,
     activateSession,
     logout,
+    resetMessage
   };
 };
