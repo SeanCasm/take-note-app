@@ -4,7 +4,6 @@ import { onSuccessUpdate, onFailureUpdate } from "../store/messageSlice";
 import { onUpdateItem } from "../store/bookSlice";
 import {
   onUpdateSelected,
-  onUpdateNoteItem,
   onUpdateNotesList,
   onDeleteNote,
   onAddNote,
@@ -21,12 +20,21 @@ export const useNote = () => {
     }
     getNotes(0, 1, { book: bookId });
   };
-
+  const createDefault = () => {
+    return {
+      id: "",
+      title: "New one",
+      content: "...",
+      lastEdit: "",
+      createdAt: "",
+    };
+  };
   const getNotes = async (limit = 0, sort = 1, fields = {}) => {
     await notesAPi
       .get("/list", { params: { limit, sort, ...fields } })
       .then(({ data }) => {
-        dispatch(onUpdateSelected(data[0]));
+        const defaultNote = createDefault();
+        dispatch(onUpdateSelected(data[0] ?? defaultNote));
         dispatch(onUpdateNotesList(data));
       })
       .catch(({ response }) => {

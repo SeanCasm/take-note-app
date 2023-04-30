@@ -31,13 +31,7 @@ export const noteSlice = createSlice({
       state.notesList[n] = payload;
     },
     onUpdateSelected: (state, { payload }) => {
-      const { title, content, lastEdit, createdAt, book, id } = payload;
-      state.selected.id = id;
-      state.selected.title = title;
-      state.selected.book = book;
-      state.selected.content = content;
-      state.selected.lastEdit = lastEdit;
-      state.selected.createdAt = createdAt;
+      state.selected = payload;
     },
     onResetSelected: (state) => {
       state.selected.id = "";

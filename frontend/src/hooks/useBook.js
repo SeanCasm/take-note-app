@@ -1,6 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
 import { bookApi } from "../api";
-import { onUpdateList, onUpdateItem, onAddItem } from "../store/bookSlice";
+import {
+  onUpdateList,
+  onUpdateItem,
+  onAddItem,
+  onUpdateSelected,
+} from "../store/bookSlice";
 import { onSuccessUpdate, onFailureUpdate } from "../store/messageSlice";
 import { useNote } from "./useNote";
 export const useBook = () => {
@@ -10,12 +15,15 @@ export const useBook = () => {
   const getSelectedBook = () => {
     return note.book;
   };
-
+  const selectOne = (newBook = {}) => {
+    dispatch(onUpdateSelected(newBook));
+  };
   const getBook = async (id = "") => {
     await bookApi
       .get("/list", { params: { id } })
       .then(({ data }) => {
         dispatch(onUpdateItem(data));
+        dispatch(onUpdateSelected(data));
       })
       .catch(({ response }) => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
@@ -26,6 +34,7 @@ export const useBook = () => {
       .post("", { title })
       .then(({ data }) => {
         dispatch(onAddItem(data));
+        dispatch(onUpdateSelected(data));
         dispatch(onSuccessUpdate(`New book has been created: ${data.title}`));
       })
       .catch(({ response }) => {
@@ -38,6 +47,7 @@ export const useBook = () => {
       .get(`/all`)
       .then(({ data }) => {
         dispatch(onUpdateList(data));
+        dispatch(onUpdateSelected(data[0]));
       })
       .catch(({ response }) => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
@@ -50,5 +60,6 @@ export const useBook = () => {
     getAllBooks,
     createBook,
     getSelectedBook,
+    selectOne,
   };
 };

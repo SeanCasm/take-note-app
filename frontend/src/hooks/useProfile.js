@@ -1,11 +1,16 @@
 import { userApi, authApi, oAuthApi } from "../api";
 import { useDispatch, useSelector } from "react-redux";
-import { onLogSuccess, onLogError, onLogout } from "../store/userSlice";
+import {
+  onLogSuccess,
+  onLogError,
+  onLogout,
+  onResetMessage,
+} from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useToken } from "./useToken";
 
 export const useProfile = () => {
-  const { email, lastname, message, status, name } = useSelector(
+  const { lastname, message, status, name } = useSelector(
     (state) => state.user
   );
   const { saveToken } = useToken();
@@ -45,7 +50,6 @@ export const useProfile = () => {
 
   const renew = async (token = "") => {
     await oAuthApi.post("", token).then(({ data }) => {
-      console.log(data);
       dispatch(onLogSuccess(data.user));
       saveToken(data.token);
     });
@@ -55,7 +59,7 @@ export const useProfile = () => {
     await authApi
       .post("/", { email, password })
       .then(({ data }) => {
-        const { name, lastname, id } = data.user;
+        const { name, lastname } = data.user;
         dispatch(onLogSuccess(data.user));
         saveToken(data.token);
         localStorage.setItem("user", JSON.stringify({ name, lastname, email }));
@@ -82,6 +86,10 @@ export const useProfile = () => {
     navigate("/home", { replace: true });
   };
 
+  const resetMessage = () => {
+    dispatch(onResetMessage());
+  };
+
   return {
     createUser,
     login,
@@ -93,5 +101,6 @@ export const useProfile = () => {
     status,
     activateSession,
     logout,
+    resetMessage
   };
 };

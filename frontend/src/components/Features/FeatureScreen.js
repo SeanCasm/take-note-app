@@ -9,7 +9,7 @@ export const FeatureScreen = () => {
   }, []);
   return (
     <>
-      <main>
+      <main className="container">
         <section>
           <div>
             <h1>
@@ -22,16 +22,14 @@ export const FeatureScreen = () => {
         </section>
         <section>
           <ul className="d-flex flex-column feature-screen-container container  ">
-            {features.map((item, idx) => {
+            {features()?.map((item, idx) => {
               return (
-                <>
-                  <Feature
-                    order={(idx + 1) % 2 === 0 ? "order-last" : "order-first"}
-                    key={idx}
-                    feature={item}
-                    iconSize={"icon-xxl"}
-                  />
-                </>
+                <Feature
+                  order={(idx + 1) % 2 === 0 ? "order-last" : "order-first"}
+                  key={idx}
+                  feature={item}
+                  iconSize={"icon-xxl"}
+                />
               );
             })}
           </ul>

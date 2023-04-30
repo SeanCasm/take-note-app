@@ -1,7 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  bookList: []
+  bookList: [],
+  selected: {
+    title: "",
+    id: "",
+  },
 };
 
 export const bookSlice = createSlice({
@@ -18,8 +22,12 @@ export const bookSlice = createSlice({
       const b = state.bookList.findIndex((item) => item.id === payload.id);
       state.bookList[b] = payload;
     },
+    onUpdateSelected: (state, { payload }) => {
+      state.selected = payload;
+    },
     onReset: () => initialState,
   },
 });
 
-export const { onUpdateList, onUpdateItem, onAddItem } = bookSlice.actions;
+export const { onUpdateList, onUpdateItem, onAddItem, onUpdateSelected } =
+  bookSlice.actions;

@@ -13,6 +13,9 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
+    onResetMessage: (state, { payload }) => {
+      state.message = "";
+    },
     onLogSuccess: (state, { payload }) => {
       const { name, lastname, email, google } = payload;
       state.name = name;
@@ -33,4 +36,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { onLogSuccess, onLogError, onLogout } = userSlice.actions;
+export const { onLogSuccess, onLogError, onLogout, onResetMessage } =
+  userSlice.actions;

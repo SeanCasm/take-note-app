@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { GoogleLogin } from "@react-oauth/google";
 import { useProfile } from "../../hooks/useProfile";
 import { ButtonSubmit } from "../Buttons/ButtonSubmit";
+import { FailureMessage } from "./AuthMessage";
 
 const schema = yup
   .object({
@@ -30,7 +31,6 @@ export const LogIn = () => {
   const onSubmit = ({ email, password }) => {
     login(email, password);
   };
-
   return (
     <form className="panel" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-3">
@@ -61,11 +61,17 @@ export const LogIn = () => {
           <label className="alert-text">{errors.password?.message}</label>
         )}
       </div>
+      <FailureMessage />
       <ButtonSubmit disabled={false} text="Log in" />
-      <div className="mt-3 text-center">
-        <p>Or log in with your google account</p>
+      <hr className="mt-3"/>
+      <div className="mt-5 text-center">
+        <p>Or log in with</p>
         <div className="mt-3">
           <GoogleLogin
+            logo_alignment="center"
+            shape="pill  "
+            text="signin_with"
+            size="large"
             onSuccess={({ credential }) => {
               googleLogin(credential);
             }}

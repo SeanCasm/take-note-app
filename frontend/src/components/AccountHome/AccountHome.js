@@ -1,25 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { MessageNotification } from "../MessageNotification";
-import { useWindows } from "../../hooks/useWindows";
 import { ContentSideNavbar } from "./ContentSideNavbar";
 import { NoteEditor } from "../Notes/NoteEditor";
 import { useNote } from "../../hooks/useNote";
+import { useBook } from "../../hooks/useBook";
 
 export const AccountHome = () => {
-  const { note } = useNote();
-  const { windowSize } = useWindows();
+  const { note, getNotes } = useNote();
+  const { book, getAllBooks } = useBook();
+  const [selectedByDefault, setSelectedByDefault] = useState(true);
+
+  useEffect(() => {
+    getAllBooks();
+  }, []);
+  useEffect(() => {
+    if (book.bookList.length > 0 && selectedByDefault) {
+      const bookId = book.bookList[0].id;
+      getNotes(0, 1, { book: bookId });
+      setSelectedByDefault(false);
+    }
+  }, [book.bookList]);
   return (
     <>
       <main className="d-flex">
-        <section>{windowSize.width > 992 && <ContentSideNavbar />}</section>
+        <ContentSideNavbar largeDisplay={true} />
         <section className="flex-fill ms-5 me-5">
-          {note.notesList.map((item) => {
-            if (note.selected.id === item.id) {
-              return (
-                <NoteEditor key={item.id} note={item} />
-              );
-            }
-          })}
+          {note.selected !== undefined && <NoteEditor note={note.selected} />}
         </section>
       </main>
       <MessageNotification />
