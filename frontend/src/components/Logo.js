@@ -10,7 +10,7 @@ export const Logo = () => {
       to={status === "not-logged" ? "home" : "main"}
     >
       <GrNotes className="logo" />
-      <div className="name-container">
+      <div>
         <h3 className="site-name">TakeNote</h3>
       </div>
     </Link>
