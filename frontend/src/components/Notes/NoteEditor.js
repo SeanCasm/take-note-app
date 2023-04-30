@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { ButtonSave } from "../Buttons/ButtonSave";
 import { ButtonDelete } from "../Buttons/ButtonDelete";
 import { BooksDropdown } from "../Books/BooksDropdown";
 import { useNote } from "../../hooks/useNote";
+import { ButtonDownloadNote } from "../Buttons/ButtonDownloadNote";
 
 const schema = yup
   .object({
@@ -18,8 +18,9 @@ const schema = yup
     book: yup.string().required("Book is required"),
   })
   .required();
-export const NoteEditor = ({ note = {} }) => {
+export const NoteEditor = () => {
   const [edition, setEdition] = useState(false);
+  const { note } = useNote();
   const {
     handleSubmit,
     register,
@@ -33,7 +34,6 @@ export const NoteEditor = ({ note = {} }) => {
     setValue("book", id);
     setEdition(id !== note.book);
   };
-
   const handleContentChange = (e) => {
     setValue("content", e.target.value);
     setEdition(e.target.value !== note.content);
@@ -49,27 +49,27 @@ export const NoteEditor = ({ note = {} }) => {
       title,
       content,
       book,
-      id: note.id,
+      id: note.selected.id,
     });
     setEdition(false);
   };
 
   useEffect(() => {
-    setValue("book", note.book);
-    setValue("content", note.content);
-    setValue("title", note.title);
-  }, [note]);
+    setValue("book", note.selected.book);
+    setValue("content", note.selected.content);
+    setValue("title", note.selected.title);
+  }, [note.selected]);
 
   return (
     <div className="note-editor">
       <div className="d-flex mt-5">
         <div className="mb-3">
           <p className="sm-text">Created at:</p>
-          <p className="sm-text"> {note?.createdAt}</p>
+          <p className="sm-text"> {note.selected?.createdAt}</p>
         </div>
         <div className="justify-self-end mx-auto">
           <p className="sm-text">Last edition:</p>
-          <p className="sm-text"> {note?.lastEdit}</p>
+          <p className="sm-text"> {note.selected?.lastEdit}</p>
         </div>
       </div>
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -112,17 +112,9 @@ export const NoteEditor = ({ note = {} }) => {
             <ButtonSave disabled={!edition} />
           </div>
           <ButtonDelete />
+          <ButtonDownloadNote disabled={note.selected === undefined} />
         </div>
       </form>
     </div>
   );
-};
-
-NoteEditor.propTypes = {
-  note: PropTypes.shape({
-    title: PropTypes.string,
-    id: PropTypes.string,
-    content: PropTypes.string,
-    createdAt: PropTypes.string,
-  }),
 };

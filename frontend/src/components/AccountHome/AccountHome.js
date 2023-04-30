@@ -25,7 +25,7 @@ export const AccountHome = () => {
       <main className="d-flex">
         <ContentSideNavbar largeDisplay={true} />
         <section className="flex-fill ms-5 me-5">
-          {note.selected !== undefined && <NoteEditor note={note.selected} />}
+          {note.selected !== undefined && <NoteEditor />}
         </section>
       </main>
       <MessageNotification />
