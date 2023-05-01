@@ -1,3 +1,3 @@
 # TakeNote
 
-main page: https://takenote-kym7.onrender.com
+Main page: https://takenote-yalq.onrender.com
