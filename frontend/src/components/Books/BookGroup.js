@@ -3,6 +3,7 @@ import Badge from "react-bootstrap/Badge";
 import { useBook } from "../../hooks/useBook";
 import { useNote } from "../../hooks/useNote";
 import { BookCreator } from "./BookCreator";
+import { ButtonDownloadBook } from "../Buttons/ButtonDownloadBook";
 
 export const BookGroup = () => {
   const [showMore, setShowMore] = useState(false);
@@ -14,8 +15,14 @@ export const BookGroup = () => {
       <div className="mb-3">
         <BookCreator createBook={createBook} />
       </div>
-      <p>Books list</p>
+      <section>
+        <p>{book.selected.title}</p>
+        <ButtonDownloadBook bookName={book.selected.title}/>
+      </section>
       <hr />
+      <div className="mb-3">
+        <p>Books list</p>
+      </div>
       {book.bookList.map((book, idx) => {
         return (
           <>
