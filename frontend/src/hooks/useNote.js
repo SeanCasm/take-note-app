@@ -50,7 +50,8 @@ export const useNote = () => {
         const { note, msg, newBook, oldBook } = data;
         dispatch(onUpdateSelected(note));
         dispatch(onSuccessUpdate(msg));
-        if (newBook !== undefined && oldBook !== undefined) {
+        console.log(newBook, oldBook);
+        if (newBook?.title !== oldBook?.title) {
           dispatch(onDeleteNote(note));
           dispatch(onUpdateItem(newBook));
           dispatch(onUpdateItem(oldBook));
