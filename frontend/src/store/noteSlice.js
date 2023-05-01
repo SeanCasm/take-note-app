@@ -25,6 +25,14 @@ export const noteSlice = createSlice({
     onDeleteNote: (state, { payload }) => {
       const notes = state.notesList.filter((item) => item.id !== payload.id);
       state.notesList = notes;
+      state.selected = notes[0] ?? {
+        id: "",
+        title: "",
+        content: "",
+        book: "",
+        lastEdit: "",
+        createdAt: "",
+      };
     },
     onUpdateNoteItem: (state, { payload }) => {
       const n = state.notesList.findIndex((item) => item.id === payload.id);
