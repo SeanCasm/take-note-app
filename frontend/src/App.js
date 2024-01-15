@@ -3,7 +3,7 @@ import { AccountHome } from "./components/AccountHome/AccountHome";
 import { Info } from "./components/Info";
 import { CustomNavbar } from "./components/CustomNavbar/CustomNavbar";
 import { Route, Routes } from "react-router-dom";
-import { FeatureScreen } from "./components/Features";
+import { FeatureScreen } from "./components/Features/FeatureScreen";
 import { LogIn, SignUp } from "./components/Form";
 import { About } from "./components/About";
 import { Home } from "./components/Home";

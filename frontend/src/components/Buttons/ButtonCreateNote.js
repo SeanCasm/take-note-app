@@ -1,18 +1,20 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { AiOutlineFileAdd } from "react-icons/ai";
+import { useNote } from "../../hooks/useNote";
 
-export const ButtonCreateNote = ({ onClick }) => {
+export const ButtonCreateNote = () => {
+  const { selectNone } = useNote();
+  const handleOnClick = () => {
+    selectNone();
+  };
   return (
     <button
       type="button"
-      className={`button-create bg-main animation-u-blind text-white`}
-      onClick={onClick}
+      className={`button-create bg-main animation-u-blind text-white ms-2`}
+      onClick={handleOnClick}
     >
-      <div className="d-flex">
-        <AiOutlineFileAdd className="icon-sm" />
-        <p>New</p>
-      </div>
+      <AiOutlineFileAdd className="icon-sm" style={{ color: "black" }} />
     </button>
   );
 };

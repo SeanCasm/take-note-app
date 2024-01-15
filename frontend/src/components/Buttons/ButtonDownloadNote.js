@@ -17,7 +17,7 @@ export const ButtonDownloadNote = () => {
   return (
     <button
       type="button"
-      className={`button-create bg-main animation-u-blind ms-auto`}
+      className={`button-create bg-main animation-u-blind m-2`}
       onClick={handleDownload}
     >
       <AiOutlineDownload className="icon-md" />

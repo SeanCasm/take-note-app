@@ -11,18 +11,18 @@ import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <GoogleOAuthProvider
-      clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-      onScriptLoadError={(err) => console.log(err)}
-    >
-      <Provider store={store}>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </Provider>
-    </GoogleOAuthProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <GoogleOAuthProvider
+    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+    onScriptLoadError={(err) => console.log(err)}
+  >
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+  </GoogleOAuthProvider>
+  // </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

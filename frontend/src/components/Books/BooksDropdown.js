@@ -5,28 +5,15 @@ import { AiOutlineBook } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { useBook } from "../../hooks/useBook";
 import { UpDownArrowIcon } from "../UpDownArrowIcon";
-import { useNote } from "../../hooks/useNote";
 
-export const BooksDropdown = ({ setValue }) => {
+export const BooksDropdown = ({ handleSelected }) => {
   const [toggle, setToggle] = useState(false);
-  const { book, selectOne } = useBook();
-  const { note } = useNote();
-  const handleSelected = ({id, title}) => {
-    setValue(id);
-    selectOne({ id, title });
-  };
-
+  const { book } = useBook();
   useEffect(() => {
-    const bId = note.selected.book ?? book.bookList[0].id;
-    setValue(bId);
-  }, [note.selected]);
-
-  useEffect(() => {
-    if (book.bookList.length > 0 && note.selected.book === "") {
-      setValue(book.bookList[0]);
+    if (book.load) {
+      handleSelected(book.bookList[0]);
     }
-  }, [book.bookList]);
-
+  }, [book.load]);
   return (
     <Dropdown
       size="sm"
@@ -41,14 +28,16 @@ export const BooksDropdown = ({ setValue }) => {
         <UpDownArrowIcon clicked={toggle} />
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        {book.bookList?.length > 0 && (
+        {book.bookList.length > 0 && (
           <>
             {book.bookList.map((book) => {
               return (
                 <Dropdown.Item
                   as={Link}
                   key={book.title}
-                  onClick={() => handleSelected(book)}
+                  onClick={() => {
+                    handleSelected(book);
+                  }}
                 >
                   {book.title}
                 </Dropdown.Item>

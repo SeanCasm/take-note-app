@@ -6,7 +6,7 @@ export const ButtonSave = ({ disabled = true }) => {
     <button
       type="submit"
       disabled={disabled}
-      className={`button-submit  bg-main ${
+      className={`button-submit m-2  bg-main ${
         disabled ? "button-disabled" : "animation-u-blind"
       } `}
     >

@@ -2,15 +2,21 @@ import React, { useState } from "react";
 import { BsTrash } from "react-icons/bs";
 import Modal from "react-bootstrap/Modal";
 import { useNote } from "../../hooks/useNote";
+import { useBook } from "../../hooks/useBook";
 
-export const ButtonDelete = () => {
+export const ButtonDelete = ({ onDeleteNote = true }) => {
   const [toggle, setToggle] = useState(false);
   const { deleteSelectedNote } = useNote();
+  const { deleteSelectedBook } = useBook();
   const handleModal = () => {
     setToggle(true);
   };
   const handleDelete = () => {
-    deleteSelectedNote();
+    if (onDeleteNote) {
+      deleteSelectedNote();
+    } else {
+      deleteSelectedBook();
+    }
     setToggle(false);
   };
   return (
@@ -20,8 +26,11 @@ export const ButtonDelete = () => {
           <Modal.Title>Delete Note</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          Are you sure you want to delete this note?. Changes cannot be
-          reverted.
+          Are you sure you want to delete this {onDeleteNote ? "Note" : "Book"}
+          ?. Changes cannot be reverted.
+          <br />
+          {!onDeleteNote &&
+            "Deleting this book will also delete related notes."}
         </Modal.Body>
         <Modal.Footer>
           <button
@@ -41,7 +50,7 @@ export const ButtonDelete = () => {
       <button
         type="button"
         onClick={handleModal}
-        className="button-cancel bg-main animation-u-blind"
+        className="button-cancel bg-main animation-u-blind m-2"
       >
         <BsTrash className="icon-md" />
       </button>

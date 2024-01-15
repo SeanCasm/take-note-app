@@ -69,11 +69,12 @@ const bookEdit = async (req = request, res = response) => {
 };
 const bookDelete = async (req = request, res = response) => {
   try {
-    const { title } = req.body;
-    const { id } = await Book.findOneAndUpdate({ title }, { status: false });
-    await Note.updateMany({ book: id }, { status: false });
+    const { id } = req.query;
+    const bid = new ObjectId(id);
+    await Book.findOneAndUpdate(bid, { status: false });
+    await Note.updateMany({ book: bid }, { status: false });
     res.json({
-      msg: `"${title}" has been deleted`,
+      msg: "Your book has been deleted",
     });
   } catch (err) {
     console.log({ err });

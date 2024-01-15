@@ -5,6 +5,8 @@ import { onUpdateSelected } from "../../store/noteSlice";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { useNote } from "../../hooks/useNote";
+import { onUpdateCreationStatus } from "../../store/createNoteSlice";
+import { ButtonCreateNote } from "../Buttons/ButtonCreateNote";
 
 export const NoteGroup = () => {
   const dispatch = useDispatch();
@@ -12,13 +14,14 @@ export const NoteGroup = () => {
 
   const handleNoteSelected = (note) => {
     dispatch(onUpdateSelected(note));
+    dispatch(onUpdateCreationStatus(false));
   };
 
   return (
     <section>
-      <Filter />
-      <div className="mt-4">
-        <p className="md-text">Count: {note.notesList.length}</p>
+      <div className="d-flex">
+        <Filter />
+        <ButtonCreateNote />
       </div>
       <ListGroup style={{ height: "20em", overflowY: "auto" }}>
         {note.notesList.map((item) => {

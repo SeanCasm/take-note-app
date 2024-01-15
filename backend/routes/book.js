@@ -17,11 +17,7 @@ router.get("/all", [validateJWT], bookGetAll);
 
 router.get(
   "/list",
-  [
-    check("id", "Book id is required").notEmpty(),
-    validateJWT,
-    validateFields,
-  ],
+  [check("id", "Book id is required").notEmpty(), validateJWT, validateFields],
   bookGet
 );
 router.post(
@@ -30,10 +26,7 @@ router.post(
     validateJWT,
     check("title", "Book title is required").notEmpty(),
     check("title").custom(bookExists),
-    check(
-      "title",
-      "Book title must have equal or less than 20 characters"
-    ).isLength({
+    check("title", "Book title mustn't have more than 20 characters").isLength({
       max: 20,
     }),
     validateFields,
@@ -45,7 +38,7 @@ router.patch("/", [validateJWT, validateFields], bookEdit);
 
 router.delete(
   "/collection",
-  [validateJWT, check("title", "Book title is required")],
+  [validateJWT, validateFields, check("id", "Book id is required").notEmpty()],
   bookDelete
 );
 

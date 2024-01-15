@@ -11,7 +11,7 @@ export const Home = () => {
         </h1>
       </header>
       <div className="mb-5">
-        <h3>All your notes and tasks in one site</h3>
+        <h3>All your life experiences in one site</h3>
       </div>
       <button
         className="mb-5 button-submit animation-u-blind bg-main"

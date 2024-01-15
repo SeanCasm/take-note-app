@@ -5,16 +5,17 @@ import {
   onUpdateItem,
   onAddItem,
   onUpdateSelected,
+  onDeleteBook,
+  onUpdateLoad,
 } from "../store/bookSlice";
 import { onSuccessUpdate, onFailureUpdate } from "../store/messageSlice";
 import { useNote } from "./useNote";
+import { onUpdateCreationStatus } from "../store/createNoteSlice";
 export const useBook = () => {
   const dispatch = useDispatch();
-  const { note } = useNote();
+  const { deleteNotesByBook } = useNote();
   const book = useSelector((state) => state.book);
-  const getSelectedBook = () => {
-    return note.book;
-  };
+
   const selectOne = (newBook = {}) => {
     dispatch(onUpdateSelected(newBook));
   };
@@ -23,7 +24,7 @@ export const useBook = () => {
       .get("/list", { params: { id } })
       .then(({ data }) => {
         dispatch(onUpdateItem(data));
-        dispatch(onUpdateSelected(data));
+        selectOne(data);
       })
       .catch(({ response }) => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
@@ -34,7 +35,7 @@ export const useBook = () => {
       .post("", { title })
       .then(({ data }) => {
         dispatch(onAddItem(data));
-        dispatch(onUpdateSelected(data));
+        selectOne(data);
         dispatch(onSuccessUpdate(`New book has been created: ${data.title}`));
       })
       .catch(({ response }) => {
@@ -42,24 +43,42 @@ export const useBook = () => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
       });
   };
+  const updateLoad = (value = false) => {
+    dispatch(onUpdateLoad(value));
+  };
   const getAllBooks = async () => {
+    updateLoad(false);
     await bookApi
       .get(`/all`)
       .then(({ data }) => {
         dispatch(onUpdateList(data));
-        dispatch(onUpdateSelected(data[0]));
+        selectOne(data[0]);
+        updateLoad(true);
       })
       .catch(({ response }) => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
       });
   };
-
+  const deleteSelectedBook = async () => {
+    const id = book.selected.id;
+    await bookApi
+      .delete(`/collection`, { params: { id } })
+      .then(({ msg }) => {
+        dispatch(onDeleteBook(id));
+        deleteNotesByBook(id);
+        dispatch(onUpdateCreationStatus(true));
+        dispatch(onSuccessUpdate(msg));
+      })
+      .catch(({ response }) => {
+        dispatch(onFailureUpdate(response.data.errors[0].msg));
+      });
+  };
   return {
     book,
     getBook,
     getAllBooks,
     createBook,
-    getSelectedBook,
     selectOne,
+    deleteSelectedBook,
   };
 };

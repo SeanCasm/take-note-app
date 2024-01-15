@@ -25,14 +25,12 @@ export const noteSlice = createSlice({
     onDeleteNote: (state, { payload }) => {
       const notes = state.notesList.filter((item) => item.id !== payload.id);
       state.notesList = notes;
-      state.selected = notes[0] ?? {
-        id: "",
-        title: "",
-        content: "",
-        book: "",
-        lastEdit: "",
-        createdAt: "",
-      };
+      state.selected = notes[0] ?? initialState.selected;
+    },
+    onDeleteNotes: (state, { payload }) => {
+      const notes = state.notesList.filter((note) => note.id !== payload);
+      state.notesList = notes;
+      state.selected = initialState.selected;
     },
     onUpdateNoteItem: (state, { payload }) => {
       const n = state.notesList.findIndex((item) => item.id === payload.id);
@@ -42,12 +40,7 @@ export const noteSlice = createSlice({
       state.selected = payload;
     },
     onResetSelected: (state) => {
-      state.selected.id = "";
-      state.selected.title = "";
-      state.selected.content = "";
-      state.selected.book = "";
-      state.selected.lastEdit = "";
-      state.selected.createdAt = "";
+      state.selected = initialState.selected;
     },
   },
 });
@@ -59,4 +52,5 @@ export const {
   onUpdateNoteItem,
   onDeleteNote,
   onAddNote,
+  onDeleteNotes,
 } = noteSlice.actions;

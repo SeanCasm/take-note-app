@@ -6,14 +6,19 @@ const initialState = {
     title: "",
     id: "",
   },
+  load: false,
 };
 
 export const bookSlice = createSlice({
   name: "book",
   initialState,
   reducers: {
+    onUpdateLoad: (state, { payload }) => {
+      state.load = payload;
+    },
     onUpdateList: (state, { payload }) => {
       state.bookList = payload;
+      state.load = true;
     },
     onAddItem: (state, { payload }) => {
       state.bookList.push(payload);
@@ -25,9 +30,21 @@ export const bookSlice = createSlice({
     onUpdateSelected: (state, { payload }) => {
       state.selected = payload;
     },
+    onDeleteBook: (state, { payload }) => {
+      const books = state.bookList.filter((item) => item.id !== payload);
+      console.log(payload);
+      state.bookList = books;
+      state.selected = initialState.selected;
+    },
     onReset: () => initialState,
   },
 });
 
-export const { onUpdateList, onUpdateItem, onAddItem, onUpdateSelected } =
-  bookSlice.actions;
+export const {
+  onUpdateList,
+  onUpdateItem,
+  onAddItem,
+  onUpdateSelected,
+  onDeleteBook,
+  onUpdateLoad,
+} = bookSlice.actions;

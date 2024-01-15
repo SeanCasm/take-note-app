@@ -8,7 +8,10 @@ import {
   onDeleteNote,
   onAddNote,
   onUpdateNoteItem,
+  onResetSelected,
+  onDeleteNotes,
 } from "../store/noteSlice";
+import { onUpdateCreationStatus } from "../store/createNoteSlice";
 
 export const useNote = () => {
   const dispatch = useDispatch();
@@ -21,21 +24,15 @@ export const useNote = () => {
     }
     getNotes(0, 1, { book: bookId });
   };
-  const createDefault = () => {
-    return {
-      id: "",
-      title: "New one",
-      content: "...",
-      lastEdit: "",
-      createdAt: "",
-    };
+
+  const deleteNotesByBook = (bid = "") => {
+    dispatch(onDeleteNotes(bid));
   };
+
   const getNotes = async (limit = 0, sort = 1, fields = {}) => {
     await notesAPi
       .get("/list", { params: { limit, sort, ...fields } })
       .then(({ data }) => {
-        const defaultNote = createDefault();
-        dispatch(onUpdateSelected(data[0] ?? defaultNote));
         dispatch(onUpdateNotesList(data));
       })
       .catch(({ response }) => {
@@ -52,6 +49,7 @@ export const useNote = () => {
         dispatch(onUpdateSelected(note));
         dispatch(onSuccessUpdate(msg));
         dispatch(onUpdateNoteItem(note));
+        dispatch(onUpdateCreationStatus(false));
         if (newBook?.title !== oldBook?.title) {
           dispatch(onDeleteNote(note));
           dispatch(onUpdateItem(newBook));
@@ -79,7 +77,6 @@ export const useNote = () => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
       });
   };
-
   const createNote = async (note = {}) => {
     await notesAPi
       .post("", note)
@@ -89,6 +86,7 @@ export const useNote = () => {
         dispatch(onSuccessUpdate(msg));
         dispatch(onAddNote(note));
         dispatch(onUpdateItem(bookDoc));
+        dispatch(onUpdateCreationStatus(false));
       })
       .catch(({ response }) => {
         console.log(response.data.errors[0].msg);
@@ -122,6 +120,10 @@ export const useNote = () => {
       )
     );
   };
+  const selectNone = () => {
+    dispatch(onResetSelected());
+  };
+
   return {
     note,
     getNotes,
@@ -132,5 +134,7 @@ export const useNote = () => {
     orderByNewest,
     orderByOldest,
     orderByLastEdition,
+    selectNone,
+    deleteNotesByBook,
   };
 };
