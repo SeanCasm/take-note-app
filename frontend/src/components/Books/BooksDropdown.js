@@ -10,10 +10,8 @@ export const BooksDropdown = ({ handleSelected }) => {
   const [toggle, setToggle] = useState(false);
   const { book } = useBook();
   useEffect(() => {
-    if (book.load) {
-      handleSelected(book.bookList[0]);
-    }
-  }, [book.load]);
+    if (book.selected) handleSelected(book.selected);
+  }, [book.selected]);
   return (
     <Dropdown
       size="sm"

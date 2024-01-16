@@ -23,7 +23,7 @@ const schema = yup
 export const NoteEditor = () => {
   const [edition, setEdition] = useState(false);
   const create = useSelector((state) => state.create);
-  const { book, selectOne } = useBook();
+  const { book } = useBook();
   const { note, saveNote, createNote } = useNote();
   const {
     handleSubmit,
@@ -33,7 +33,6 @@ export const NoteEditor = () => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleBookSelected = ({ id, title }) => {
-    selectOne({ id, title });
     setValue("book", id);
     setEdition(id !== note.book);
   };
