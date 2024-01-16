@@ -76,7 +76,7 @@ export const NoteEditor = () => {
   return (
     <div className="flex-fill ms-5 me-5">
       <section className="note-editor">
-        <div className="d-flex mt-5">
+        <section className="d-flex">
           <div className="mb-3">
             <p className="sm-text">Created at:</p>
             <p className="sm-text"> {note.selected?.createdAt}</p>
@@ -85,7 +85,7 @@ export const NoteEditor = () => {
             <p className="sm-text">Last edition:</p>
             <p className="sm-text"> {note.selected?.lastEdit}</p>
           </div>
-        </div>
+        </section>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="d-flex">
             <div className="d-flex flex-column align-items-start">

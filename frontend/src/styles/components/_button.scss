@@ -1,9 +1,10 @@
 .button-cancel {
     background-color: $btn-cancel;
+    border-radius: 12px;
 }
 .button-profile {
-    border: 1px solid gray;
     border-radius: 2em;
+    border-radius: 12px;
 }
 .button-profile button p:hover {
     transform: scale(0.9);
@@ -12,11 +13,18 @@
     background-color: $main-color-light;
     border: 0.5px solid $main-color;
     font-weight: 700;
+    border-radius: 12px;
 }
 .button-create {
     background-color: $btn-create-light;
     border: 0.5px solid $btn-create;
     font-weight: 700;
+    border-radius: 12px;
+}
+.button-config-book {
+    background-color: rgb(153, 99, 206);
+    border-radius: 12px;
+    margin-left: 12px;
 }
 .button-disabled {
     opacity: 0.5;

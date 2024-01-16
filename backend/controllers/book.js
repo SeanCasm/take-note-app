@@ -54,8 +54,16 @@ const bookPost = async (req = request, res = response) => {
 };
 const bookEdit = async (req = request, res = response) => {
   try {
-    const { title } = req.params;
-    const book = await Book.findOneAndUpdate({ title }, req.body);
+    const { id, title } = req.body;
+    const lastEdit = new Date().toISOString();
+    const options = { new: true };
+    const bid = new ObjectId(id);
+    const book = await Book.findByIdAndUpdate(
+      bid,
+      { title, lastEdit },
+      options
+    );
+    console.log(book);
     res.json({
       book,
       msg: "Update successful",

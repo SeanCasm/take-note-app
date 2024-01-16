@@ -24,7 +24,7 @@ export const ButtonDownloadBook = ({ bookName = "" }) => {
   return (
     <button
       type="button"
-      className={`button-create bg-main animation-u-blind ms-3`}
+      className={`button-create bg-main animation-u-blind m-2`}
       onClick={handleDownload}
     >
       <ImFolderDownload className="icon-sm" />

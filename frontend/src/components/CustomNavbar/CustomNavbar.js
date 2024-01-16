@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Logo } from "../Logo";
-import { FeatureQuickPanel } from "../Features/FeatureQuickPanel";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import Offcanvas from "react-bootstrap/Offcanvas";
@@ -12,22 +11,13 @@ import { Link } from "react-router-dom";
 export const CustomNavbar = () => {
   const { status } = useProfile();
   const [show, setShow] = useState(false);
-  const [displayFeatures, setDisplayFeatures] = useState(false);
   const handleToggleOffcanvas = () => {
     setShow(!show);
   };
   const handleOffcanvas = () => {
     setShow(false);
-    handleFeaturesLeave();
   };
 
-  const handleFeatures = () => {
-    setDisplayFeatures(true);
-    setShow(false);
-  };
-  const handleFeaturesLeave = () => {
-    setDisplayFeatures(false);
-  };
   return (
     <>
       <Navbar className="navbar-custom px-5" key="lg" expand="lg">
@@ -62,8 +52,6 @@ export const CustomNavbar = () => {
               </Nav.Link>
               <Nav.Link
                 onClick={handleOffcanvas}
-                onMouseOver={handleFeatures}
-                onMouseLeave={handleFeaturesLeave}
                 as={Link}
                 to="/features"
                 className="animation-u-blind button-underline"
@@ -92,7 +80,7 @@ export const CustomNavbar = () => {
                       to="/signup"
                       className="animation-u-blind button-underline"
                     >
-                      <p>Sign in</p>
+                      <p>Sign up</p>
                     </Nav.Link>
                   </Nav>
                 </>
@@ -101,7 +89,6 @@ export const CustomNavbar = () => {
           </Offcanvas.Body>
         </Navbar.Offcanvas>
       </Navbar>
-      {displayFeatures && <FeatureQuickPanel />}
     </>
   );
 };

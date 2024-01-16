@@ -1,14 +1,14 @@
 import React from "react";
 import { MessageNotification } from "../MessageNotification";
-import { ContentSideNavbar } from "./ContentSideNavbar";
-import { NoteEditor } from "../Notes/NoteEditor";
+import { Outlet } from "react-router-dom";
+import { CustomBreadcrumb } from "../CustomBreadcrumb";
 
 export const AccountHome = () => {
   return (
     <>
+      <CustomBreadcrumb />
       <main className="d-flex">
-        <ContentSideNavbar largeDisplay={true} />
-        <NoteEditor />
+        <Outlet />
       </main>
       <MessageNotification />
     </>

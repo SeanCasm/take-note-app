@@ -74,6 +74,20 @@ export const useBook = () => {
         dispatch(onFailureUpdate(response.data.errors[0].msg));
       });
   };
+  const updateBook = async (title = "") => {
+    const id = book.selected.id;
+    await bookApi
+      .patch(`/`, { id, title })
+      .then(({ data }) => {
+        const { book, msg } = data;
+        dispatch(onUpdateItem(book));
+        dispatch(onSuccessUpdate(msg));
+      })
+      .catch((response) => {
+        console.log(response);
+        dispatch(onFailureUpdate(response));
+      });
+  };
   return {
     book,
     getBook,
@@ -81,5 +95,6 @@ export const useBook = () => {
     createBook,
     selectOne,
     deleteSelectedBook,
+    updateBook,
   };
 };

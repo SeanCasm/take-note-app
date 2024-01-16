@@ -29,12 +29,19 @@ router.post(
     check("title", "Book title mustn't have more than 20 characters").isLength({
       max: 20,
     }),
+    check("title", "Book title mustn't have less than 2 characters").isLength({
+      min: 2,
+    }),
     validateFields,
   ],
   bookPost
 );
 
-router.patch("/", [validateJWT, validateFields], bookEdit);
+router.patch(
+  "/",
+  [validateJWT, check("title").custom(bookExists), validateFields],
+  bookEdit
+);
 
 router.delete(
   "/collection",

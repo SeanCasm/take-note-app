@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ButtonCreateBook } from "../Buttons/ButtonCreateBook";
+import { ButtonUpdateBook } from "../Buttons/ButtonUpdateBook";
 
 export const BookCreator = ({ createBook }) => {
   const [bookTitle, setBookTitle] = useState("");
@@ -23,8 +23,8 @@ export const BookCreator = ({ createBook }) => {
           placeholder="New book"
           onChange={handleBookName}
         />
-        <div className="me-3">
-          <ButtonCreateBook onClick={handleCreate} />
+        <div className="ms-3">
+          <ButtonUpdateBook onClick={handleCreate} />
         </div>
       </div>
     </>

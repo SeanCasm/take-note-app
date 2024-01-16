@@ -8,6 +8,7 @@ import {
 } from "../store/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useToken } from "./useToken";
+import { paths } from "../utils/paths";
 
 export const useProfile = () => {
   const { lastname, message, status, name } = useSelector(
@@ -26,7 +27,7 @@ export const useProfile = () => {
         localStorage.setItem("isLogged", true);
         const { name, lastname, email } = data.user;
         localStorage.setItem("user", JSON.stringify({ name, lastname, email }));
-        navigate(`../home`, { replace: true });
+        navigate(`../${paths.noteEditor}`, { replace: true });
       })
       .catch(({ response }) => {
         dispatch(onLogError(response.data.errors[0].msg));
@@ -38,7 +39,6 @@ export const useProfile = () => {
     await userApi
       .post("", nUser)
       .then(({ data }) => {
-        console.log(data);
         const { email, password } = nUser;
         login(email, password);
       })
@@ -64,7 +64,7 @@ export const useProfile = () => {
         saveToken(data.token);
         localStorage.setItem("user", JSON.stringify({ name, lastname, email }));
         localStorage.setItem("isLogged", true);
-        navigate(`../home`, { replace: true });
+        navigate(`../${paths.noteEditor}`, { replace: true });
       })
       .catch(({ response }) => {
         console.log(response);
@@ -75,7 +75,7 @@ export const useProfile = () => {
   const activateSession = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     dispatch(onLogSuccess(userData));
-    navigate("/home", { replace: true });
+    navigate(`/${paths.noteEditor}`, { replace: true });
   };
 
   const logout = () => {
@@ -83,7 +83,7 @@ export const useProfile = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     localStorage.setItem("isLogged", false);
-    navigate("/home", { replace: true });
+    navigate(`/${paths.login}`, { replace: true });
   };
 
   const resetMessage = () => {
@@ -101,6 +101,6 @@ export const useProfile = () => {
     status,
     activateSession,
     logout,
-    resetMessage
+    resetMessage,
   };
 };

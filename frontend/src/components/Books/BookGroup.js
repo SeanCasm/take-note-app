@@ -3,10 +3,9 @@ import Badge from "react-bootstrap/Badge";
 import { useBook } from "../../hooks/useBook";
 import { useNote } from "../../hooks/useNote";
 import { BookCreator } from "./BookCreator";
-import { ButtonDownloadBook } from "../Buttons/ButtonDownloadBook";
 import { useDispatch } from "react-redux";
 import { onUpdateCreationStatus } from "../../store/createNoteSlice";
-import { ButtonDelete } from "../Buttons/ButtonDelete";
+import { ButtonConfigBook } from "../Buttons/ButtonConfigBook";
 
 export const BookGroup = () => {
   const dispatch = useDispatch();
@@ -42,7 +41,6 @@ export const BookGroup = () => {
         <BookCreator createBook={createBook} />
       </div>
 
-      <hr />
       <div className="mb-3">
         <p>My books</p>
       </div>
@@ -60,11 +58,8 @@ export const BookGroup = () => {
                   <p className="underline md-text">{b.title}</p>
                 </button>
                 <Badge bg="secondary">{b.notes}</Badge>
-                {b?.id === book?.selected?.id && (
-                  <ButtonDownloadBook bookName={b?.title} />
-                )}
-                {b?.id === book?.selected?.id && (
-                  <ButtonDelete onDeleteNote={false} />
+                {b.id === book.selected.id && (
+                  <ButtonConfigBook bookClicked={b} />
                 )}
               </li>
             )}
